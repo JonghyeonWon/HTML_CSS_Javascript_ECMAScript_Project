@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-
+import './MyComponent.css';
 class MyComponent extends Component {
 
     //상태객체
     state = {
         value: 0,
         message: '',
-        username: ''
+        username: '',
+        isValid: false,
     };
 
     handleChange = (e) => {
@@ -14,11 +15,22 @@ class MyComponent extends Component {
             [e.target.name]: e.target.value
         });
     }
-    
+
+    handleEnter = (e) => {
+        if (e.keyCode === 13) {
+            this.setState({
+                isValid: true,
+                message: ''
+            });
+            //직접 접근
+            this.myUsername.focus();
+        }
+    };
+
     render() {
         const { name, age } = this.props;
-        const { value, message, username } = this.state;
-        const { handleChange } = this;
+        const { value, message, username, isValid } = this.state;
+        const { handleChange, handleEnter } = this;
 
         return (
             <div>
@@ -28,12 +40,18 @@ class MyComponent extends Component {
                 <button onClick={() => (this.setState({
                     value: value + 1
                 }))}>증가</button>
-                
+
                 <p>상태변수 message = {message}</p>
-                <input name="message" value={message} onChange={handleChange}/>
+                <input name="message" value={message} onChange={handleChange}
+                    onKeyDown={handleEnter}
+                />
                 <br />
                 <p>상태변수 username = {username}</p>
-                <input name="username" value={username} onChange={handleChange}/>
+                <input name="username" value={username}
+                    onChange={handleChange}
+                    className={isValid ? 'success' : 'failure'}
+                    ref={(ref) => this.myUsername = ref}
+                />
             </div>
         );
     }
