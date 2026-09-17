@@ -220,9 +220,6 @@ tr:hover {
   font-size: 0.9em;
   /* 상대적으로 작은 폰트 크기 */
   margin-top: 5px;
-  /* 위쪽 여백 */
-  display: none;
-  /* 기본적으로 숨김 */
 }
 
 /* 취소 버튼 스타일 */
